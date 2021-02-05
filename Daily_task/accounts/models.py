@@ -18,6 +18,7 @@ class tasks(models.Model):
     days_to_do = models.IntegerField(blank=True,)
     #deadline = models.DateTimeField(default=deadline_cal())
     #deadline = models.DateTimeField(default=lambda: datetime.now()+timedelta(days=30))
+    deadline = models.DateField(max_length=8,blank=True,default=1)
     description = models.TextField(blank=True)
     title = models.CharField(primary_key=True,blank=False, max_length=100)
     is_complete = models.BooleanField(default=False, blank=False)
