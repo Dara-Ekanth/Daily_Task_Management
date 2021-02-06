@@ -1,0 +1,12 @@
+{% extends 'accounts/main.html' %}
+
+{% block content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form_table }}
+        <br>
+        <input type="submit" name="save">
+    </form>
+
+
+{% endblock %}
