@@ -20,9 +20,10 @@ class beneficiare(models.Model):
 class tasks(models.Model):
 
     category = (
-        ('highest','higest'),
-        ('medium','medium'),
-        ('low','low'),
+        ('highest','highest'),
+        ('primary','primary'),
+        ('secondary','secondary'),
+        ('tertiary','tertiary')
     )
 
     # def deadline_cal(self):

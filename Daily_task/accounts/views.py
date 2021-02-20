@@ -15,7 +15,7 @@ def reg_view(request):
             registration_form.save()
             message = "User Successfully Registered."
             messages.success(request,message)
-            return redirect('home')
+            return redirect('task_view')
         else:
             message = "User Registration Failed."
             messages.error(request,message)
@@ -32,7 +32,7 @@ def create_task(request):
             message = "Task has been created Successfully."
             messages.success(request, message)
             print("It must be succes")
-            return redirect('home')
+            return redirect('task_view')
         else:
             message = "Task Creation Failed."
             messages.error(request,message)
@@ -43,13 +43,13 @@ def create_task(request):
     return render(request,'accounts/create_task.html',context)
 
 def view_tasks(request):
-    task = tasks.objects.all()
+    task = tasks.objects.all().order_by('priority')
     context = {"tasks":task}
     return render(request,'accounts/tasks.html',context)
 
 def update_task(request,pk):
     task = tasks.objects.get(id=pk)
-    form = task_form(instance=task)
+    form = task_form(instance=task)               #task_form is the name of the form.
     if request.method == 'POST':
         form = task_form(request.POST,instance=task)
         if form.is_valid():
@@ -57,3 +57,9 @@ def update_task(request,pk):
             return redirect('task_view')
     context = {'form_table':form}
     return render(request,'accounts/create_task.html',context)
+
+def delete_task(request,pk):
+    task = tasks.objects.get(id=pk)
+    task.delete()
+    return render(request,'accounts/confirm_delete_task.html')
+
