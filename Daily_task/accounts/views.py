@@ -44,8 +44,12 @@ def create_task(request):
 
 def view_tasks(request):
     task = tasks.objects.all().order_by('priority')
-    context = {"tasks":task}
-    return render(request,'accounts/tasks.html',context)
+    if task.count() == 0:
+        print("No tasks are there. Please create to see.")
+        return render(request,'accounts/zerotask_page.html')
+    else:
+        context = {"tasks": task}
+        return render(request, 'accounts/tasks.html', context)
 
 def update_task(request,pk):
     task = tasks.objects.get(id=pk)
@@ -60,6 +64,9 @@ def update_task(request,pk):
 
 def delete_task(request,pk):
     task = tasks.objects.get(id=pk)
-    task.delete()
-    return render(request,'accounts/confirm_delete_task.html')
+    if request.method == "POST":
+        task.delete()
+        return redirect('task_view')
+    context = {'task':task}
+    return render(request,'accounts/confirm_delete_task.html',context)
 
