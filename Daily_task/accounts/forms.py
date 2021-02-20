@@ -1,13 +1,13 @@
 from .models import *
-from django import forms
 from django.forms import ModelForm
 
-class reg_form(forms.ModelForm):
+class reg_form(ModelForm):
+
     class Meta:
-        model = benificiary
+        model = beneficiare
         fields = '__all__'
 
-class task_form(forms.ModelForm):
+class task_form(ModelForm):
     class Meta:
         model = tasks
         fields = '__all__'

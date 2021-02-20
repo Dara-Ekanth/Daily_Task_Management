@@ -6,6 +6,7 @@ from django.contrib import messages
 
 def home(request):
     return render(request,'accounts/main.html')
+
 def reg_view(request):
     registration_form = reg_form()
     if request.method == 'POST':
@@ -23,11 +24,11 @@ def reg_view(request):
     return render(request,'accounts/registration.html',context)
 
 def create_task(request):
-    task_forms = task_form()
+    created_form = task_form()
     if request.method == 'POST':
-        task_forms = task_form(request.POST)
-        if task_forms.is_valid():
-            task_forms.save()
+        created_form = task_form(request.POST)
+        if created_form.is_valid():
+            created_form.save()
             message = "Task has been created Successfully."
             messages.success(request, message)
             print("It must be succes")
@@ -37,6 +38,22 @@ def create_task(request):
             messages.error(request,message)
             print("It must be Fail")
             return redirect('create_task')
-    context = {'form_table':task_forms}
-    print("It must be succes")
+    context = {'form_table':created_form}
+    #print("It must be succes")
+    return render(request,'accounts/create_task.html',context)
+
+def view_tasks(request):
+    task = tasks.objects.all()
+    context = {"tasks":task}
+    return render(request,'accounts/tasks.html',context)
+
+def update_task(request,pk):
+    task = tasks.objects.get(id=pk)
+    form = task_form(instance=task)
+    if request.method == 'POST':
+        form = task_form(request.POST,instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('task_view')
+    context = {'form_table':form}
     return render(request,'accounts/create_task.html',context)

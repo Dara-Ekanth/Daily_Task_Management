@@ -1,0 +1,34 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md">
+            <table>
+                <tr>
+                    <th>S.no</th>
+                    <th>Title</th>
+                    <th>Discription</th>
+                </tr>
+                {% for i in tasks %}
+                    <tr>
+                        <td>
+                            count
+                        </td>
+                        <div class="col-md5">
+                            <td>{{ i }}</td>
+                        </div>
+
+                        <div class="col-md7">
+                            <td>{{ i.description }}</td>
+                        </div>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'update_task' i.id %}">Update</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

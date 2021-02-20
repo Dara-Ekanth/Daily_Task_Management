@@ -4,6 +4,7 @@
     <form method="POST" action="">
         {% csrf_token %}
         {{ form_table }}
+        {{ form_table.errors }}
         <br>
         <input type="submit" name="save">
     </form>
