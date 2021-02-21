@@ -1,11 +1,12 @@
 {% extends 'accounts/main.html' %}
 
 {% block content %}
-    <p> Are you sure want to delete {{ task }}</p>
-    <form method="post" action="{% url 'delete_task' task.id %}">
-        {% csrf_token %}
-        <a class="btn btn-sm btn-info" href= {% url 'task_view' %}> cancel </a>
-        <input type="submit" value="confirm" class="btn btn-sm btn-danger">
-    </form>
-
+    <div align="center" style="margin-top:10px;">
+        <p> Are you sure want to delete {{ task }}</p>
+        <form method="post" action="{% url 'delete_task' task.id %}">
+            {% csrf_token %}
+            <a class="btn btn-sm btn-info" href= {% url 'task_view' %}> cancel </a>
+            <input type="submit" value="confirm" class="btn btn-sm btn-danger">
+        </form>
+    </div>
 {% endblock %}
