@@ -1,7 +1,35 @@
 {% extends 'accounts/main.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div style='margin-top:5px;margin-left:10px;margin-right:0;'>
-    <!--div class="card" style="width:100%"-->
+    <div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
+        <!--div class="card" style="width:100%"-->
+        <div style="width:100%">
+            <form method="GET">
+                <div class="row">
+                    <div class="col-3">
+                        {{ myfilter.form.title|as_crispy_field }}
+                    </div>
+                    <div class="col-4">
+                        {{ myfilter.form.description|as_crispy_field }}
+                    </div>
+                    <div>
+                        {{ myfilter.form.priority|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.date_created|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.days_to_do|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.deadline|as_crispy_field }}
+                    </div>
+                </div>
+                <button class="btn btn-primary">submit</button>
+            </form>
+            <br>
+            <hr>
+        </div>
         <div class="row">
             <div class="col-md">
                 <table style="width:75%">
