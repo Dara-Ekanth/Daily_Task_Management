@@ -1,6 +1,18 @@
 {% extends 'accounts/main.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <style>
+        #message-style {
+            background-color: coral;
+            color: #fff;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+    {% for message in messages %}
+        <p id="message-style">{{ message }}</p>
+    {% endfor %}
+    
     <div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
         <!--div class="card" style="width:100%"-->
         <div style="width:100%">
@@ -56,7 +68,6 @@
         </div>
     </div>
     <!--/div-->
-
 
 
 {% endblock %}
