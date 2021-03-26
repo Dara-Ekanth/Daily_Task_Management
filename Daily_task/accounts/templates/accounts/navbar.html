@@ -1,3 +1,4 @@
+{% load static %}
 <style>
     .hello-msg {
         font-size: 20px;
@@ -10,7 +11,17 @@
         color: gainsboro;
         margin-right: 10px;
     }
+    .time-msg{
+        font-size: 15px;
+        color: white;
+        margin-right: 10px;
+    }
 </style>
+
+<link rel="stylesheet" type="text/css" href={% static 'css/main.css' %}>
+    <link rel="stylesheet" href="css/test.css">
+    <script src="{% static 'js/reattime.js' %}"></script>
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -22,14 +33,17 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" href="{% url 'reg_page' %}">Home </a>
             {% if request.user.is_staff %}
-                <a ></a>
+                <a></a>
             {% endif %}
-        <a class="nav-item nav-link active " href="{% url 'task_view' %}">Tasks</a>
+            <a class="nav-item nav-link active " href="{% url 'task_view' %}">Tasks</a>
             <a class="nav-item nav-link active" href="{% url 'create_task' %}">Create Task</a>
             <a class="nav-item nav-link active" href="{% url 'settings' %}">settings</a>
             <a class="nav-item nav-link disabled" href="#">Disabled</a>
         </div>
     </div>
+    <span><div id="clock" class="time-msg"><p>Time is precious.</p></div></span>
+
+{#    <span class="logout-msg">{% now "jS F Y H:i:s" %}</span>#}
     <span class="hello-msg">Hello, {{ request.user }}</span>
     <span><a class="logout-msg" href="{% url 'logout' %}"> Logout</a></span>
 </nav>
