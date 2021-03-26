@@ -78,35 +78,32 @@ def logout_user(request):
 def create_task(request):
     user_name = request.user.beneficiare
     print("The name of the user in the create task is",request.user)
-    created_form = task_form(user=request.user)
+    created_form = task_form()
     print("the user is ",request.user)
     print("The title is",request.POST.get('title'))
-    data = {
-        'title': request.POST.get('title'),
-        'date_created': request.POST.get('title'),
-        'days_to_do': request.POST.get('title'),
-        'deadline': request.POST.get('title'),
-        'description': request.POST.get('title'),
-        'priority': request.POST.get('title'),
-        'user': user_name,
-    }
+    # data = {
+    #     'title': request.POST.get('title'),
+    #     'date_created': request.POST.get('title'),
+    #     'days_to_do': request.POST.get('title'),
+    #     'deadline': request.POST.get('title'),
+    #     'description': request.POST.get('title'),
+    #     'priority': request.POST.get('title'),
+    #     'user': user_name,
+    # }
     #created_form['user'] = 'user_name'
     #print(created_form)
     if request.method == 'POST':
-        created_form = task_form (request.POST,user=request.user)
+        created_form = task_form(request.POST)
         if created_form.is_valid():
             created_form.save()
-            #newform = form.save(commit=False)
-
-            # data = {
-            #     'title': created_form.cleaned_data.get('title'),
-            #     'date_created':created_form.cleaned_data.get('date_created'),
-            #     'days_to_do':created_form.cleaned_data.get('days_to_do'),
-            #     'deadline':created_form.cleaned_data.get('deadline'),
-            #     'description':created_form.cleaned_data.get('description'),
-            #     'priority':created_form.cleaned_data.get('priority'),
-            #     'user':created_form.cleaned_data.get('user')
-            # }
+            lastrow = tasks.objects.all().last()
+            #print("The top row  is",toprow)
+            # tasktitle = tasks.objects.get(title=toprow.title)
+            # print("The title got from the tasks query is",tasktitle)
+            buser= beneficiare.objects.get(user=request.user)
+            print("The user from the buser is",buser)
+            lastrow.user = buser
+            lastrow.save()
 
             print("The cleaned get is",created_form.cleaned_data.get('user'))
             message = "Task has been created Successfully."
@@ -126,7 +123,7 @@ def create_task(request):
 #@allowed_users(allowed_roles=['admin','user'])
 def view_tasks(request):
     print("the id of the user is", request.user.id)
-    #task = tasks.objects.filter(user_id=request.user.id).order_by('priority')
+    #task = tasks.objects.filter(user=request.user).order_by('priority')
     task = request.user.beneficiare.tasks_set.all().order_by('priority')
     if task.count() == 0:
         print("No tasks are there. Please create to see.")
@@ -162,7 +159,7 @@ def settings_view(request):
     userr = request.user.beneficiare
     form = settigs_form(instance=userr)
     if request.method == 'POST':
-        form = settigs_form(request.POST,instance=userr)
+        form = settigs_form(request.POST,request.FILES,instance=userr)
         if form.is_valid():
             form.save()
             return redirect('home')

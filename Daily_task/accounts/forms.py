@@ -11,14 +11,16 @@ class reg_form(UserCreationForm):
         fields = ['username','email','password1','password2']
 
 class task_form(ModelForm):
-    user = forms.ModelMultipleChoiceField(queryset=beneficiare.objects.filter(user__id=1))
+    deadline = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    #user = forms.ModelMultipleChoiceField(queryset=beneficiare.objects.filter(user__id=1))
 
-    def __init__(self, user, *args, **kwargs):
-        super(task_form, self).__init__(*args, **kwargs)
-        self.fields['user'].queryset = User.objects.filter(pk=user.id)
+    # def __init__(self, user, *args, **kwargs):
+    #     super(task_form, self).__init__(*args, **kwargs)
+    #     self.fields['user'].queryset = User.objects.filter(pk=user.id)
     class Meta:
         model = tasks
         fields = '__all__'
+        exclude = ['user']
 
 
 class settigs_form(ModelForm):
