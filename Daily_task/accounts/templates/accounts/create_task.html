@@ -8,12 +8,13 @@
             });
         });
     </script>
+
     <script src="Daily_task/accounts/templates/accounts/js/clock.js"></script>
 
     <div id="clock"></div>
 
     <div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
-        <form method="POST" action="">
+        <form method="POST" action="" onSubmit="clearField();">
             {% csrf_token %}
 
             <div class="row">

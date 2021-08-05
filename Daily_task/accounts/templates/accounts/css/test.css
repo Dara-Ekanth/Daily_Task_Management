@@ -1,0 +1,9 @@
+#clock{
+		width: 100%;
+		position: absolute;
+		font-size:9vw;
+		color: gainsboro;
+		font-family:'Roboto','sans-serif';
+		margin-top: 25%;
+
+	}
