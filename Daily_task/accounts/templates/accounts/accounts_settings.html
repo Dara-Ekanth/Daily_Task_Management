@@ -1,7 +1,9 @@
 {% extends 'accounts/main.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <form method="post">
 {% csrf_token %}
-{{ form.as_p }}
+{{ form|crispy}}
+<input class="btn btn-primary" type="submit" name="save">
 </form>
 {% endblock %}
