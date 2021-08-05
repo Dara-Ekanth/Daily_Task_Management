@@ -1,0 +1,93 @@
+{% extends 'accounts/main.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <style>
+        #message-style {
+            background-color: coral;
+            color: #fff;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#id_deadline").datetimepicker({
+                format: 'd/m/Y H:i',
+            });
+        });
+
+        $(function () {
+            $("#id_date_created").datetimepicker({
+                format: 'd/m/Y H:i',
+            });
+        });
+
+    </script>
+    {% for message in messages %}
+        <p id="message-style">{{ message }}</p>
+    {% endfor %}
+
+    <div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
+        <!--div class="card" style="width:100%"-->
+        <div style="width:100%">
+            <form method="GET">
+                <div class="row">
+                    <div class="col-2">
+                        {{ myfilter.form.title|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.description|as_crispy_field }}
+                    </div>
+                    <div>
+                        {{ myfilter.form.priority|as_crispy_field }}
+                    </div>
+                    <div class="col-3">
+                        {{ myfilter.form.date_created|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.days_to_do|as_crispy_field }}
+                    </div>
+                    <div class="col-2">
+                        {{ myfilter.form.deadline|as_crispy_field }}
+                    </div>
+                </div>
+                <div align="center">
+                <button class="btn btn-primary" >submit</button>
+                </div>
+            </form>
+            <br>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <table style="width:85%">
+                    <tr>
+                        <th>S.no</th>
+                        <th>Title</th>
+                        <th>Discription</th>
+                        <th>Priority</th>
+                        <th>Deadline</th>
+                        <th>Time Remaining</th>
+                    </tr>
+                    {% for i in tasks %}
+                        <tr>
+                            <td>
+                                <b>{{ forloop.counter }}.</b>
+                            </td>
+                            <td>{{ i.title|truncatewords:15 }}</td>
+                            <td>{{ i.description|default:"NA" }}</td>
+                            <td>{{ i.priority }}</td>
+                            <td>{{ i.deadline }}</td>
+                            <td>{{ i.deadline|timeuntil }}</td>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'update_task' i.id %}">Update</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'delete_task' i.id %}"> Delete </a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--/div-->
+
+
+{% endblock %}
