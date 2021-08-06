@@ -1,9 +1,66 @@
 {% extends 'accounts/main.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-<form method="post">
-{% csrf_token %}
-{{ form|crispy}}
-<input class="btn btn-primary" type="submit" name="save">
-</form>
+<script>
+        $(function () {
+            $("#id_Birthday").datetimepicker({
+                format: 'd/m/Y H:i',
+            });
+        });
+    </script>
+<style>
+        .profile-pic {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+
+        .proof-pic {
+            max-width: 100px;
+            max-height: 100px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    </style>
+<div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-body">
+
+                <hr>
+                <h3 style="text-align: center">Account Settings</h3>
+                <hr>
+<!--                <img class="profile-pic" src="{{ request.user.profile_pic.url }}">-->
+            </div>
+        </div>
+    </div>
+</div>
+<div style='margin-top:5px;margin-left:10px;margin-right:10px;'>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-3">
+                {{ form.user|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.name|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.email_id|as_crispy_field }}
+            </div>
+            <div class="col-3">
+                {{ form.phone_number|as_crispy_field }}
+            </div>
+
+        </div>
+
+
+
+        {{ form.errors }}
+        <br>
+        <input class="btn btn-primary" type="submit" name="save">
+    </form>
+</div>
 {% endblock %}
