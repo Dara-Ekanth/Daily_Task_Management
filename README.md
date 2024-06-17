@@ -1,2 +1,3 @@
-### The main motive of this prroject is to keep track of the daily activities. 
-## Work under Progress.
+### Daily Task Management 
+* A web Application to keep tract of daily tasks.
+* Implemented using Django web framework.
